@@ -8,8 +8,170 @@
      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
      <!-- daisyui -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- font-awesome -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-    
+<body class="bg-gray-100">
+
+    <!-- navbar start -->
+    <div class="bg-white shadow p-5 flex justify-between items-center">
+
+<div class="flex items-center gap-1">
+    <img style="height: 37px; width: 36px;" src="./assets/github-logo.png" alt="">
+    <h1 class="text-xl font-bold">GitHub Issues Tracker</h1>
+</div>
+
+<div class="flex gap-2">
+
+<input id="searchInput"
+class="border p-2 rounded"
+placeholder="Search issues">
+
+
+<button onclick="searchIssue()"
+class="bg-[#4A00FF] text-white px-4 py-2 rounded">
+Search
+</button>
+
+</div>
+</div>
+<!-- navbar close -->
+ <!-- main part -->
+  <div class="max-w-7xl mx-auto p-6">
+ <div class="bg-white p-4 rounded-xl shadow mb-6 flex gap-3">
+    <!-- all btn -->
+     <button id="allBtb" onclick="filterIssues('all',this)" class="tabBtn border px-4 py-2 rounded">
+        All
+     </button>
+     <!-- open btn -->
+       <button  onclick="filterIssues('open',this)" class="tabBtn border px-4 py-2 rounded">
+        Open
+     </button> 
+    <!-- close btn -->
+       <button onclick="filterIssues('closed',this)" class="tabBtn border px-4 py-2 rounded">
+        Closed
+     </button>
+
+</div>
+
+
+<!-- issus summary -->
+ <div class="bg-white rounded-xl p-5 shadow mb-6 flex justify-between items-center">
+
+
+    <div class="flex items-center gap-3">
+    <div class="bg-purple-100 p-3 rounded-full ">
+        <img src="./assets/Aperture.png" alt="">
+    </div>
+
+    <div>
+      <h2 class="font-bold text-lg">
+        <span id="totalCount">0</span> Issues
+      </h2>
+      <p class="text-gray-500 text-sm">
+        Track and manage your project issues
+      </p>
+    </div>
+  </div>
+
+
+  <!-- Right Side Counts -->
+  <div class="flex gap-6 text-sm">
+
+    <!-- Open Count -->
+    <p id="openBox" class="flex items-center gap-2">
+      <span class="text-green-500"><i class="fa-solid fa-circle"></i></span>
+      Open: <span id="openCount">0</span>
+    </p>
+
+    <!-- Closed Count -->
+    <p id="closedBox" class="flex items-center gap-2">
+      <span class="text-purple-500"><i class="fa-solid fa-circle"></i></span>
+      Closed: <span id="closedCount">0</span>
+    </p>
+
+  </div>
+ </div>
+ <!-- Spinner -->
+
+<div id="spinner" class="hidden">
+<span class="loading loading-ring loading-xs"></span>
+<span class="loading loading-ring loading-sm"></span>
+<span class="loading loading-ring loading-md"></span>
+<span class="loading loading-ring loading-lg"></span>
+<span class="loading loading-ring loading-xl"></span>
+</div>
+
+<!-- Cards -->
+
+<div id="issuesContainer"
+class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
+</div>
+
+
+<!-- modal -->
+<div id="issueModal"
+class="hidden fixed inset-0 flex items-center justify-center bg-black/30 z-50">
+
+  <div class="bg-white shadow-2xl rounded-xl p-6 w-[600px]">
+
+    <!-- Title -->
+    <h2 id="modalTitle" class="text-2xl font-bold mb-2"></h2>
+
+    <!-- Status + author -->
+    <p class="text-sm text-gray-500 mb-3">
+      <span class="bg-green-100 text-green-600 px-2 py-1 rounded mr-2">
+        Opened
+      </span>
+      Opened by <span id="modalAssignee"></span> :
+      <span id="modalDate">:</span>
+    </p>
+
+    <!-- Tags -->
+    <div class="flex gap-2 mb-4 text-xs">
+
+      <span class="bg-red-100 text-red-500 px-2 py-1 rounded">
+        <i class="fa-solid fa-bug"></i> BUG
+      </span>
+
+      <span class="bg-yellow-100 text-yellow-600 px-2 py-1 rounded">
+        <i class="fa-solid fa-life-ring"></i> HELP WANTED
+      </span>
+
+    </div>
+
+    <!-- Description -->
+    <p id="modalDesc" class="text-gray-600 mb-6"></p>
+
+    <!-- Bottom section -->
+    <div class="flex justify-between bg-gray-50 p-4 rounded mb-4">
+
+      <p>
+        <strong>Assignee:</strong>
+        <span id="modalAssignee"></span>
+      </p>
+
+      <p>
+        <strong>Priority:</strong>
+        <span id="modalPriority"
+        class="px-3 py-1 rounded text-white bg-red-500"></span>
+      </p>
+
+    </div>
+
+    <!-- Close button -->
+    <div class="text-right">
+      <button onclick="closeModal()"
+      class="bg-purple-600 text-white px-4 py-2 rounded">
+        Close
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="./script/main.js"></script>
 </body>
 </html>
