@@ -218,8 +218,6 @@ document.getElementById("modalPriority").innerText = issue.priority
 
  const modal = document.getElementById("issueModal")
 
-// modal.style.top = rect.top + window.scrollY + "px"
-// modal.style.left = rect.left + "px"
 
 modal.classList.remove("hidden")
 
